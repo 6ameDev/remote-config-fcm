@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "781337223787",
+    "firebase_url": "https://my-demo-1b958.firebaseio.com",
+    "project_id": "my-demo-1b958",
+    "storage_bucket": "my-demo-1b958.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781337223787:android:6130a6ba2e3a81b0",
+        "android_client_info": {
+          "package_name": "com.gamedev.firebasedemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781337223787-s98bajftt3qad66k3d0vke776mna4ck1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9GUCtlguAfA0QCySWvWJvXONhp7xSLcg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
