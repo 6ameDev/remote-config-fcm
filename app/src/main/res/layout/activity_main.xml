@@ -12,7 +12,30 @@
     tools:context="com.gamedev.firebasedemo.MainActivity">
 
     <TextView
+        android:id="@+id/label_hello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+        android:text="@string/label_hello"/>
+
+    <TextView
+        android:id="@+id/text_username"
+        android:layout_toRightOf="@+id/label_hello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="username text"/>
+
+    <Button
+        android:id="@+id/btn_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/btn_refresh"/>
+
+    <Button
+        android:id="@+id/btn_force_refresh"
+        android:layout_toRightOf="@+id/btn_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/btn_force_refresh"/>
 </RelativeLayout>
