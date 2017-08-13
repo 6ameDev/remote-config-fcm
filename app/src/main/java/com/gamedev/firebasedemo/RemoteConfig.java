@@ -15,7 +15,7 @@ public class RemoteConfig {
     public static final String KEY_USERNAME = "username";
     public static final Callback EMPTY_CALLBACK = new Callback() {
         @Override
-        public void onFetched() {
+        public void onFinished() {
 
         }
     };
@@ -23,12 +23,12 @@ public class RemoteConfig {
     private final FirebaseRemoteConfig firebaseRemoteConfig;
     private long cacheExpirationInSeconds = 1800;   // 30 minutes
 
-    private RemoteConfig(FirebaseRemoteConfig firebaseRemoteConfig) {
+    public RemoteConfig(FirebaseRemoteConfig firebaseRemoteConfig) {
         this.firebaseRemoteConfig = firebaseRemoteConfig;
     }
 
     public interface Callback {
-        void onFetched();
+        void onFinished();
     }
 
     public static RemoteConfig newInstance() {
@@ -73,8 +73,9 @@ public class RemoteConfig {
                                     if (task.isSuccessful()) {
                                         Log.i(TAG, "[Fetch successful]");
                                         firebaseRemoteConfig.activateFetched();
-                                        callback.onFetched();
+                                        callback.onFinished();
                                     } else {
+                                        callback.onFinished();
                                         Log.i(TAG, "[Fetch not successful] [Exception: ]" + task.getException());
                                     }
                                 }
@@ -82,6 +83,7 @@ public class RemoteConfig {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull final Exception e) {
+                                    callback.onFinished();
                                     Log.i(TAG, "[Fetch failed]");
                                 }
                             });

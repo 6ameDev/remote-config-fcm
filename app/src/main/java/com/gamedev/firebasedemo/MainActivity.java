@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(final View view) {
                 remoteConfig.requestUsername(new RemoteConfig.Callback() {
                     @Override
-                    public void onFetched() {
+                    public void onFinished() {
                         usernameText.setText(remoteConfig.username());
                     }
                 });
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(final View view) {
                 remoteConfig.forceRequestUsername(new RemoteConfig.Callback() {
                     @Override
-                    public void onFetched() {
+                    public void onFinished() {
                         usernameText.setText(remoteConfig.username());
                     }
                 });
