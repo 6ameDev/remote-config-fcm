@@ -3,4 +3,6 @@
     <string name="label_hello">Hello.. </string>
     <string name="btn_refresh">REFRESH</string>
     <string name="btn_force_refresh">Force Refresh</string>
+    <string name="btn_subscribe">Subscribe</string>
+    <string name="hint_topic">Enter FCM topic to be subscribed</string>
 </resources>

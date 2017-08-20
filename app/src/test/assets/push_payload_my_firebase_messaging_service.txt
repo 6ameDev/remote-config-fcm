@@ -1,0 +1,5 @@
+D/MyFirebaseMsgService: From: /topics/news
+
+D/MyFirebaseMsgService: Message data payload: {Optional Data Key 1=batman, Optional Data Key 2=aquaman, Optional Data Key 3=wonder woman}
+
+D/MyFirebaseMsgService: Message Notification Body: Hello there! Seems like you're new to firebase cloud messaging.

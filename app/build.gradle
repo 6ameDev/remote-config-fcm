@@ -20,10 +20,17 @@ android {
     }
 }
 
+ext {
+    firebaseVersion = "11.0.4"
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.google.firebase:firebase-config:11.0.4'
+
+    compile "com.google.firebase:firebase-config:${firebaseVersion}"
+    compile "com.google.firebase:firebase-messaging:${firebaseVersion}"
+    compile 'com.firebase:firebase-jobdispatcher:0.6.0'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'

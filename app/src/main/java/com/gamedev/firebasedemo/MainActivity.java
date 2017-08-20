@@ -1,15 +1,22 @@
 package com.gamedev.firebasedemo;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import static android.view.View.OnClickListener;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TAG = "FCMessaging";
     private TextView usernameText;
 
     @Override
@@ -25,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         Button refreshButton = (Button) findViewById(R.id.btn_refresh);
         refreshButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(final View view) {
+            public void onClick(View view) {
                 remoteConfig.requestUsername(new RemoteConfig.Callback() {
                     @Override
                     public void onFinished() {
@@ -38,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         Button forceRefreshButton = (Button) findViewById(R.id.btn_force_refresh);
         forceRefreshButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(final View view) {
+            public void onClick(View view) {
                 remoteConfig.forceRequestUsername(new RemoteConfig.Callback() {
                     @Override
                     public void onFinished() {
@@ -47,6 +54,28 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-    }
 
+
+        // Handle possible data accompanying notification message.
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+                Log.i(TAG, "Key: " + key + " Value: " + value);
+            }
+        }
+
+        final EditText topicInput = (EditText) findViewById(R.id.input_topic);
+        Button subscribeButton = (Button) findViewById(R.id.btn_subscribe);
+        subscribeButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String topic = topicInput.getText().toString();
+                FirebaseMessaging.getInstance().subscribeToTopic(topic);
+
+                String msg = String.format("[Subscribed] [Topic: %s]", topic);
+                Log.i(TAG, msg);
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
