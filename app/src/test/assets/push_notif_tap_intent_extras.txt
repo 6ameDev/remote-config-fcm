@@ -1,0 +1,7 @@
+D/FCMessaging: Key: google.sent_time Value: 1503255658353
+D/FCMessaging: Key: from Value: /topics/news
+D/FCMessaging: Key: google.message_id Value: 0:1503255658587636%5b5cb3e25b5cb3e2
+D/FCMessaging: Key: Optional Data Key 1 Value: batman
+D/FCMessaging: Key: Optional Data Key 2 Value: aquaman
+D/FCMessaging: Key: Optional Data Key 3 Value: wonder woman
+D/FCMessaging: Key: collapse_key Value: com.gamedev.firebasedemo

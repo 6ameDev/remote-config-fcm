@@ -54,15 +54,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        // Handle possible data accompanying notification message.
-        if (getIntent().getExtras() != null) {
-            for (String key : getIntent().getExtras().keySet()) {
-                Object value = getIntent().getExtras().get(key);
-                Log.i(TAG, "Key: " + key + " Value: " + value);
-            }
-        }
-
         final EditText topicInput = (EditText) findViewById(R.id.input_topic);
         Button subscribeButton = (Button) findViewById(R.id.btn_subscribe);
         subscribeButton.setOnClickListener(new OnClickListener() {
@@ -72,9 +63,14 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseMessaging.getInstance().subscribeToTopic(topic);
 
                 String msg = String.format("[Subscribed] [Topic: %s]", topic);
-                Log.i(TAG, msg);
+                Log.d(TAG, msg);
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Handle possible data accompanying notification message.
+        Bundle bundle = getIntent().getExtras();
+        Executor executor = RemoteMessageParser.parse(bundle);
+        executor.execute();
     }
 }
