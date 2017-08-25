@@ -44,7 +44,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             String notificationBody = remoteMessage.getNotification().getBody();
             Log.d(TAG, "Message Notification Body: " + notificationBody);
-            
+
             sendNotification("Some notification received: " + notificationBody);
         }
     }
@@ -52,9 +52,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void scheduleJob() {
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
         Job myJob = dispatcher.newJobBuilder()
-                              .setService(MyJobService.class)
-                              .setTag("my-job-tag")
-                              .build();
+                .setService(MyJobService.class)
+                .setTag("my-job-tag")
+                .build();
         dispatcher.schedule(myJob);
     }
 
@@ -66,9 +66,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                                                                PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent.FLAG_ONE_SHOT);
 
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark_focused)
                 .setContentTitle("FCM Message")

@@ -27,14 +27,11 @@ public class RemoteConfig {
         this.firebaseRemoteConfig = firebaseRemoteConfig;
     }
 
-    public interface Callback {
-        void onFinished();
-    }
-
     public static RemoteConfig newInstance() {
         FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder().setDeveloperModeEnabled(
-                BuildConfig.DEBUG).build();
+        FirebaseRemoteConfigSettings configSettings =
+                new FirebaseRemoteConfigSettings.Builder().setDeveloperModeEnabled(
+                        BuildConfig.DEBUG).build();
         firebaseRemoteConfig.setConfigSettings(configSettings);
         firebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
         return new RemoteConfig(firebaseRemoteConfig);
@@ -67,25 +64,30 @@ public class RemoteConfig {
         Log.i(TAG, String.format("[Fetching] [Expiry: %s]", cacheExpirationInSeconds));
 
         firebaseRemoteConfig.fetch(cacheExpirationInSeconds)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Log.i(TAG, "[Fetch successful]");
-                                        firebaseRemoteConfig.activateFetched();
-                                        callback.onFinished();
-                                    } else {
-                                        callback.onFinished();
-                                        Log.i(TAG, "[Fetch not successful] [Exception: ]" + task.getException());
-                                    }
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull final Exception e) {
-                                    callback.onFinished();
-                                    Log.i(TAG, "[Fetch failed]");
-                                }
-                            });
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.i(TAG, "[Fetch successful]");
+                            firebaseRemoteConfig.activateFetched();
+                            callback.onFinished();
+                        } else {
+                            callback.onFinished();
+                            Log.i(TAG,
+                                    "[Fetch not successful] [Exception: ]" + task.getException());
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull final Exception e) {
+                        callback.onFinished();
+                        Log.i(TAG, "[Fetch failed]");
+                    }
+                });
+    }
+
+    public interface Callback {
+        void onFinished();
     }
 }

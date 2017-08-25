@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'checkstyle'
 
 android {
     compileSdkVersion 25
@@ -22,6 +23,7 @@ android {
 
 ext {
     firebaseVersion = "11.0.4"
+    checkstyleVersion = '8.1'
 }
 
 dependencies {
@@ -38,6 +40,17 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+}
+
+task checkstyle(type: Checkstyle) {
+    configFile = rootProject.file('config/checkstyle/rules.xml')
+
+    source 'src/main/java'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    // empty classpath
+    classpath = files()
 }
 
 apply plugin: 'com.google.gms.google-services'
