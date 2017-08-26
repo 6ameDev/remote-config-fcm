@@ -22,35 +22,13 @@
         android:layout_toRightOf="@+id/label_hello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="username text"/>
-
-    <EditText
-        android:id="@+id/input_topic"
-        android:layout_below="@+id/label_hello"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_topic"/>
+        tools:text="user"/>
 
     <Button
         android:id="@+id/btn_refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:text="@string/btn_refresh"/>
-
-    <Button
-        android:id="@+id/btn_force_refresh"
-        android:layout_toRightOf="@+id/btn_refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/btn_force_refresh"/>
-
-    <Button
-        android:id="@+id/btn_subscribe"
-        android:layout_toRightOf="@+id/btn_force_refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/btn_subscribe"/>
 </RelativeLayout>
