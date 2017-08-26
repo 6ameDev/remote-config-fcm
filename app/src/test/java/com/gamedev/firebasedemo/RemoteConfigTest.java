@@ -45,7 +45,7 @@ public class RemoteConfigTest {
         when(task.isSuccessful()).thenReturn(true);
         when(firebaseRemoteConfig.fetch(anyLong())).thenReturn(task);
 
-        remoteConfig.requestUsername(callback);
+        remoteConfig.fetch(callback);
 
         verify(callback).onFinished();
         verify(firebaseRemoteConfig).activateFetched();
@@ -68,7 +68,7 @@ public class RemoteConfigTest {
         when(task.getException()).thenReturn(new RuntimeException());
         when(firebaseRemoteConfig.fetch(anyLong())).thenReturn(task);
 
-        remoteConfig.requestUsername(callback);
+        remoteConfig.fetch(callback);
 
         verify(callback).onFinished();
     }
@@ -89,7 +89,7 @@ public class RemoteConfigTest {
         when(task.addOnCompleteListener((OnCompleteListener<Void>) any())).thenReturn(task);
         when(firebaseRemoteConfig.fetch(anyLong())).thenReturn(task);
 
-        remoteConfig.requestUsername(callback);
+        remoteConfig.fetch(callback);
 
         verify(callback).onFinished();
     }

@@ -13,17 +13,20 @@ import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import javax.inject.Inject;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "FCMessaging";
+    @Inject
+    RemoteConfig remoteConfig;
     private TextView usernameText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final RemoteConfig remoteConfig = RemoteConfig.newInstance();
+        ((FirebaseDemoApp) getApplication()).deps().inject(this);
         remoteConfig.init();
 
         usernameText = (TextView) findViewById(R.id.text_username);
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         refreshButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                remoteConfig.requestUsername(new RemoteConfig.Callback() {
+                remoteConfig.fetch(new RemoteConfig.Callback() {
                     @Override
                     public void onFinished() {
                         usernameText.setText(remoteConfig.username());
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         forceRefreshButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                remoteConfig.forceRequestUsername(new RemoteConfig.Callback() {
+                remoteConfig.fetch(new RemoteConfig.Callback() {
                     @Override
                     public void onFinished() {
                         usernameText.setText(remoteConfig.username());
@@ -71,6 +74,6 @@ public class MainActivity extends AppCompatActivity {
         // Handle possible data accompanying notification message.
         Bundle bundle = getIntent().getExtras();
         Executor executor = RemoteMessageParser.parse(bundle);
-        executor.execute();
+        executor.execute(remoteConfig);
     }
 }

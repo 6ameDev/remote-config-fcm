@@ -27,6 +27,16 @@ public class RemoteConfig {
         this.firebaseRemoteConfig = firebaseRemoteConfig;
     }
 
+    // ********
+    // Configs
+    // ********
+    public String username() {
+        return firebaseRemoteConfig.getString(KEY_USERNAME);
+    }
+
+    // ****************************
+    // RemoteConfig helper methods
+    // ****************************
     public static RemoteConfig newInstance() {
         FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings =
@@ -44,16 +54,12 @@ public class RemoteConfig {
         fetch(cacheExpirationInSeconds);
     }
 
-    public String username() {
-        return firebaseRemoteConfig.getString(KEY_USERNAME);
+    public void refresh() {
+        fetch(0);
     }
 
-    public void requestUsername(Callback callback) {
+    public void fetch(Callback callback) {
         fetch(cacheExpirationInSeconds, callback);
-    }
-
-    public void forceRequestUsername(Callback callback) {
-        fetch(0, callback);
     }
 
     private void fetch(long cacheExpirationInSeconds) {
@@ -61,20 +67,20 @@ public class RemoteConfig {
     }
 
     private void fetch(long cacheExpirationInSeconds, final Callback callback) {
-        Log.i(TAG, String.format("[Fetching] [Expiry: %s]", cacheExpirationInSeconds));
+        Log.d(TAG, String.format("[Fetching] [Expiry: %s]", cacheExpirationInSeconds));
 
         firebaseRemoteConfig.fetch(cacheExpirationInSeconds)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.i(TAG, "[Fetch successful]");
+                            Log.d(TAG, "[Fetch successful]");
                             firebaseRemoteConfig.activateFetched();
                             callback.onFinished();
                         } else {
                             callback.onFinished();
-                            Log.i(TAG,
-                                    "[Fetch not successful] [Exception: ]" + task.getException());
+                            Log.d(TAG, String.format("[Fetch not successful] [Exception: %s]",
+                                    task.getException()));
                         }
                     }
                 })
@@ -82,7 +88,7 @@ public class RemoteConfig {
                     @Override
                     public void onFailure(@NonNull final Exception e) {
                         callback.onFinished();
-                        Log.i(TAG, "[Fetch failed]");
+                        Log.d(TAG, "[Fetch failed]");
                     }
                 });
     }

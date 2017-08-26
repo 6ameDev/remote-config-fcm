@@ -7,9 +7,20 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+    @Inject
+    RemoteConfig remoteConfig;
+
     private static final String TAG = "MyFirebaseMsgService";
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ((FirebaseDemoApp) getApplication()).deps().inject(this);
+    }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -25,7 +36,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Map<String, String> remoteMessageData = remoteMessage.getData();
         if (remoteMessageData.size() > 0) {
             Executor executor = RemoteMessageParser.parse(remoteMessageData);
-            executor.execute();
+            executor.execute(remoteConfig);
         }
     }
 }

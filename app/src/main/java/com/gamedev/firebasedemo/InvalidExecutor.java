@@ -7,7 +7,7 @@ public class InvalidExecutor implements Executor {
     private static final String TAG = "InvalidExecutor";
 
     @Override
-    public void execute() {
+    public void execute(RemoteConfig remoteConfig) {
         Log.d(TAG, "execute");
     }
 }
