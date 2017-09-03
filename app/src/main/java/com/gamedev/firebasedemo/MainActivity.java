@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Inject
     RemoteConfig remoteConfig;
+    @Inject
+    MySharedPreferences mySharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ((FirebaseDemoApp) getApplication()).deps().inject(this);
         subscribeToFcmTopic();
-        remoteConfig.init();
 
         final TextView usernameText = (TextView) findViewById(R.id.text_username);
 
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         // Handle possible data accompanying notification message.
         Bundle bundle = getIntent().getExtras();
         Executor executor = RemoteMessageParser.parse(bundle);
-        executor.execute(remoteConfig);
+        executor.execute(mySharedPreferences);
     }
 
     private void subscribeToFcmTopic() {

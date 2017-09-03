@@ -12,7 +12,7 @@ import javax.inject.Inject;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Inject
-    RemoteConfig remoteConfig;
+    MySharedPreferences mySharedPreferences;
 
     private static final String TAG = "MyFirebaseMsgService";
 
@@ -36,7 +36,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Map<String, String> remoteMessageData = remoteMessage.getData();
         if (remoteMessageData.size() > 0) {
             Executor executor = RemoteMessageParser.parse(remoteMessageData);
-            executor.execute(remoteConfig);
+            executor.execute(mySharedPreferences);
         }
     }
 }

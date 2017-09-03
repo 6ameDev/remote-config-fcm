@@ -1,5 +1,5 @@
 package com.gamedev.firebasedemo;
 
 public interface Executor {
-    void execute(RemoteConfig remoteConfig);
+    void execute(MySharedPreferences mySharedPreferences);
 }

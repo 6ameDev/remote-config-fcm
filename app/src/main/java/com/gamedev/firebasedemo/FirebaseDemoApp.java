@@ -2,10 +2,16 @@ package com.gamedev.firebasedemo;
 
 import android.app.Application;
 
+import com.gamedev.firebasedemo.deps.AppModule;
 import com.gamedev.firebasedemo.deps.DaggerDeps;
 import com.gamedev.firebasedemo.deps.Deps;
 
+import javax.inject.Inject;
+
 public class FirebaseDemoApp extends Application {
+
+    @Inject
+    RemoteConfig remoteConfig;
 
     private Deps deps;
 
@@ -13,7 +19,12 @@ public class FirebaseDemoApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        deps = DaggerDeps.builder().build();
+        deps = DaggerDeps.builder()
+                .appModule(new AppModule(this))
+                .build();
+        deps.inject(this);
+
+        remoteConfig.init();
     }
 
     public Deps deps() {

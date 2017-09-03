@@ -1,5 +1,6 @@
 package com.gamedev.firebasedemo.deps;
 
+import com.gamedev.firebasedemo.MySharedPreferences;
 import com.gamedev.firebasedemo.RemoteConfig;
 
 import javax.inject.Singleton;
@@ -12,7 +13,7 @@ public class ConfigModule {
 
     @Provides
     @Singleton
-    public RemoteConfig providesRemoteConfig() {
-        return RemoteConfig.newInstance();
+    public RemoteConfig providesRemoteConfig(MySharedPreferences mySharedPreferences) {
+        return RemoteConfig.newInstance(mySharedPreferences);
     }
 }
