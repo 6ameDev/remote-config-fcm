@@ -14,7 +14,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     public static final String TAG = "FCMessaging";
     public static final String TOPIC = "test_topic";
@@ -27,22 +27,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
         ((FirebaseDemoApp) getApplication()).deps().inject(this);
         subscribeToFcmTopic();
 
         final TextView usernameText = (TextView) findViewById(R.id.text_username);
+        populateUsername(usernameText);
 
         Button refreshButton = (Button) findViewById(R.id.btn_refresh);
         refreshButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                remoteConfig.fetch(new RemoteConfig.Callback() {
-                    @Override
-                    public void onFinished() {
-                        usernameText.setText(remoteConfig.username());
-                    }
-                });
+                populateUsername(usernameText);
             }
         });
 
@@ -52,11 +48,20 @@ public class MainActivity extends AppCompatActivity {
         executor.execute(mySharedPreferences);
     }
 
+    private void populateUsername(final TextView usernameText) {
+        remoteConfig.fetch(new RemoteConfig.Callback() {
+            @Override
+            public void onFinished() {
+                usernameText.setText(remoteConfig.username());
+            }
+        });
+    }
+
     private void subscribeToFcmTopic() {
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC);
 
         String msg = String.format("[Subscribed] [Topic: %s]", TOPIC);
         Log.d(TAG, msg);
-        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(HomeActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 }

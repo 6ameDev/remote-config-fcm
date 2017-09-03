@@ -1,5 +1,7 @@
 package com.gamedev.firebasedemo;
 
+import static com.gamedev.firebasedemo.BuildConfig.DEBUG;
+
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -13,14 +15,8 @@ public class RemoteConfig {
 
     public static final String TAG = "RemoteConfig";
     public static final String KEY_USERNAME = "username";
-    public static final Callback EMPTY_CALLBACK = new Callback() {
-        @Override
-        public void onFinished() {
-
-        }
-    };
     public static final int IMMEDIATE_CACHE_EXPIRY = 0;
-    public static final long CACHE_EXPIRY_IN_SECONDS = 1800;   // 30 minutes
+    public static final long CACHE_EXPIRY_IN_SECONDS = 3600;   // 1 hour
 
     private final FirebaseRemoteConfig firebaseRemoteConfig;
     private final MySharedPreferences mySharedPreferences;
@@ -43,34 +39,27 @@ public class RemoteConfig {
     // ****************************
     public static RemoteConfig newInstance(MySharedPreferences mySharedPreferences) {
         FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        FirebaseRemoteConfigSettings configSettings =
-                new FirebaseRemoteConfigSettings.Builder().setDeveloperModeEnabled(
-                        BuildConfig.DEBUG).build();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(DEBUG).build();
         firebaseRemoteConfig.setConfigSettings(configSettings);
         firebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
         return new RemoteConfig(firebaseRemoteConfig, mySharedPreferences);
     }
 
-    // TODO: 01/09/17 Show splash screen until configs are fetched
-    public void init() {
+    public void init(Callback callback) {
 //        if (firebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
 //            cacheExpirationInSeconds = 0;
 //        }
         if (mySharedPreferences.configUpdateEnabled()) {
-            // TODO: 01/09/17 Disable config update after they are fetched successfully
-            // TODO: mySharedPreferences.resetConfigUpdateFlag();
-            fetch(IMMEDIATE_CACHE_EXPIRY);
+            mySharedPreferences.resetConfigUpdateFlag();
+            fetch(IMMEDIATE_CACHE_EXPIRY, callback);
         } else {
-            fetch(CACHE_EXPIRY_IN_SECONDS);
+            fetch(CACHE_EXPIRY_IN_SECONDS, callback);
         }
     }
 
     public void fetch(Callback callback) {
         fetch(CACHE_EXPIRY_IN_SECONDS, callback);
-    }
-
-    private void fetch(long cacheExpirationInSeconds) {
-        fetch(cacheExpirationInSeconds, EMPTY_CALLBACK);
     }
 
     private void fetch(long cacheExpirationInSeconds, final Callback callback) {
