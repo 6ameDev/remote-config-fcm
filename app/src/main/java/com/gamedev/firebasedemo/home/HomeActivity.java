@@ -1,4 +1,4 @@
-package com.gamedev.firebasedemo;
+package com.gamedev.firebasedemo.home;
 
 import static android.view.View.OnClickListener;
 
@@ -10,6 +10,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gamedev.firebasedemo.executor.Executor;
+import com.gamedev.firebasedemo.FirebaseDemoApp;
+import com.gamedev.firebasedemo.MySharedPreferences;
+import com.gamedev.firebasedemo.R;
+import com.gamedev.firebasedemo.RemoteConfig;
+import com.gamedev.firebasedemo.parser.RemoteMessageParser;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import javax.inject.Inject;

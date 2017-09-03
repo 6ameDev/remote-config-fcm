@@ -1,7 +1,7 @@
 package com.gamedev.firebasedemo.deps;
 
-import com.gamedev.firebasedemo.HomeActivity;
-import com.gamedev.firebasedemo.MyFirebaseMessagingService;
+import com.gamedev.firebasedemo.home.HomeActivity;
+import com.gamedev.firebasedemo.services.MyFirebaseMessagingService;
 import com.gamedev.firebasedemo.splash.SplashActivity;
 
 import javax.inject.Singleton;

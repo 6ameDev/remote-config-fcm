@@ -1,8 +1,12 @@
-package com.gamedev.firebasedemo;
+package com.gamedev.firebasedemo.parser;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.gamedev.firebasedemo.executor.Executor;
+import com.gamedev.firebasedemo.executor.InvalidExecutor;
+import com.gamedev.firebasedemo.executor.RemoteConfigUpdateExecutor;
 
 import java.util.Map;
 
@@ -31,7 +35,7 @@ public class RemoteMessageParser {
         Log.d(TAG, "Command: " + command);
 
         switch (command) {
-            case "REFRESH_REMOTE_CONFIG": return new RemoteConfigRefreshExecutor();
+            case "REFRESH_REMOTE_CONFIG": return new RemoteConfigUpdateExecutor();
             default: return new InvalidExecutor();
         }
     }

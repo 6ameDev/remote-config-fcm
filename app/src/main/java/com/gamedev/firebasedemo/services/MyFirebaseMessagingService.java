@@ -1,7 +1,11 @@
-package com.gamedev.firebasedemo;
+package com.gamedev.firebasedemo.services;
 
 import android.util.Log;
 
+import com.gamedev.firebasedemo.FirebaseDemoApp;
+import com.gamedev.firebasedemo.MySharedPreferences;
+import com.gamedev.firebasedemo.parser.RemoteMessageParser;
+import com.gamedev.firebasedemo.executor.Executor;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 

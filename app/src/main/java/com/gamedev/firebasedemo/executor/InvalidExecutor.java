@@ -1,7 +1,9 @@
-package com.gamedev.firebasedemo;
+package com.gamedev.firebasedemo.executor;
 
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.gamedev.firebasedemo.MySharedPreferences;
 
 public class InvalidExecutor implements Executor {
 

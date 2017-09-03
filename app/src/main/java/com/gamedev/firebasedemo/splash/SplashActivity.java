@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.gamedev.firebasedemo.FirebaseDemoApp;
-import com.gamedev.firebasedemo.HomeActivity;
+import com.gamedev.firebasedemo.home.HomeActivity;
 import com.gamedev.firebasedemo.R;
 import com.gamedev.firebasedemo.RemoteConfig;
 

@@ -1,4 +1,4 @@
-package com.gamedev.firebasedemo;
+package com.gamedev.firebasedemo.services;
 
 import android.util.Log;
 

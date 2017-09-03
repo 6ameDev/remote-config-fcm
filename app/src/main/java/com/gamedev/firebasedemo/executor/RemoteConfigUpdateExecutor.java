@@ -1,11 +1,13 @@
-package com.gamedev.firebasedemo;
+package com.gamedev.firebasedemo.executor;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-public class RemoteConfigRefreshExecutor implements Executor {
+import com.gamedev.firebasedemo.MySharedPreferences;
 
-    public static final String TAG = "RemoteConfigRefreshExe";
+public class RemoteConfigUpdateExecutor implements Executor {
+
+    public static final String TAG = "RemoteConfigUpdateExe";
 
     @Override
     public void execute(@NonNull MySharedPreferences mySharedPreferences) {
